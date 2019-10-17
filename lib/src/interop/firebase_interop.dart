@@ -6,6 +6,7 @@ library firebase.firebase_interop;
 import 'package:js/js.dart';
 
 import '../func.dart';
+import 'analytics_interop.dart';
 import 'app_interop.dart';
 import 'auth_interop.dart';
 import 'database_interop.dart';
@@ -39,6 +40,8 @@ external FirestoreJsImpl firestore([AppJsImpl app]);
 external FunctionsJsImpl functions();
 @JS()
 external MessagingJsImpl messaging([AppJsImpl app]);
+@JS()
+external AnalyticsJsImpl analytics([AppJsImpl app]);
 
 /// https://firebase.google.com/docs/reference/js/firebase.User
 @anonymous
@@ -156,6 +159,10 @@ class FirebaseOptions {
   external set storageBucket(String s);
   external String get messagingSenderId;
   external set messagingSenderId(String s);
+  external String get measurementId;
+  external set measurementId(String s);
+  external String get appId;
+  external set appId(String s);
 
   external factory FirebaseOptions(
       {String apiKey,
@@ -163,5 +170,7 @@ class FirebaseOptions {
       String databaseURL,
       String projectId,
       String storageBucket,
-      String messagingSenderId});
+      String messagingSenderId,
+      String measurementId,
+      String appId});
 }

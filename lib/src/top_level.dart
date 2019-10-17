@@ -1,5 +1,6 @@
 import 'package:js/js_util.dart' as js;
 
+import 'analytics.dart';
 import 'app.dart';
 import 'auth.dart';
 import 'database.dart';
@@ -34,7 +35,9 @@ App initializeApp(
     String projectId,
     String storageBucket,
     String messagingSenderId,
-    String name}) {
+    String name,
+    String measurementId,
+    String appId}) {
   name ??= _defaultAppName;
 
   try {
@@ -45,7 +48,9 @@ App initializeApp(
             databaseURL: databaseURL,
             projectId: projectId,
             storageBucket: storageBucket,
-            messagingSenderId: messagingSenderId),
+            messagingSenderId: messagingSenderId,
+            measurementId: measurementId,
+            appId: appId),
         name));
   } catch (e) {
     if (_firebaseNotLoaded(e)) {
@@ -127,6 +132,13 @@ Messaging messaging([App app]) {
       (app != null) ? firebase.messaging(app.jsObject) : firebase.messaging();
 
   return Messaging.getInstance(jsObject);
+}
+
+Analytics analytics([App app]) {
+  var jsObject =
+      (app != null) ? firebase.analytics(app.jsObject) : firebase.analytics();
+
+  return Analytics.getInstance(jsObject);
 }
 
 /// Exception thrown when the firebase.js is not loaded.
